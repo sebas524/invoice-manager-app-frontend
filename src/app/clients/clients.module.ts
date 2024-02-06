@@ -7,6 +7,9 @@ import { ClientsRoutingModule } from './clients-routing.module';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { AboutPageComponent } from './pages/about-page/about-page.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CreateUserPageComponent } from './pages/create-user-page/create-user-page.component';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -14,8 +17,16 @@ import { HttpClientModule } from '@angular/common/http';
     LayoutPageComponent,
     HomePageComponent,
     AboutPageComponent,
+    CreateUserPageComponent,
   ],
-  imports: [CommonModule, SharedModule, ClientsRoutingModule, HttpClientModule],
-  exports: [ClientsPageComponent, LayoutPageComponent],
+  imports: [
+    CommonModule,
+    SharedModule,
+    ClientsRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    RouterModule,
+  ],
+  exports: [ClientsPageComponent, LayoutPageComponent, CreateUserPageComponent],
 })
 export class ClientsModule {}

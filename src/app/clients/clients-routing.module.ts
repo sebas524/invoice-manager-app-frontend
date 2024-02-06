@@ -4,6 +4,7 @@ import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { ClientsPageComponent } from './pages/clients-page/clients-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { AboutPageComponent } from './pages/about-page/about-page.component';
+import { CreateUserPageComponent } from './pages/create-user-page/create-user-page.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,10 @@ const routes: Routes = [
       {
         path: 'clients',
         component: ClientsPageComponent,
+      },
+      {
+        path: 'clients/create/client',
+        component: CreateUserPageComponent,
       },
       {
         path: 'home',

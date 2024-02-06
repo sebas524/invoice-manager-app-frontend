@@ -1,0 +1,66 @@
+<div class="container mx-auto mt-8">
+  <div class="bg-white rounded-lg shadow-md p-6 max-w-lg mx-auto">
+    <!-- Added mx-auto -->
+    <h2 class="text-3xl font-semibold mb-4 text-gray-800">Add New Client</h2>
+
+    <form (ngSubmit)="create()">
+      <div class="mb-6">
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="firstName"
+          >First Name</label
+        >
+        <input
+          class="form-input mt-1 block w-full bg-gray-200 text-gray-700 rounded-md py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          id="firstName"
+          type="text"
+          placeholder="First Name"
+          [(ngModel)]="newClient.firstName"
+          name="firstName"
+        />
+      </div>
+
+      <div class="mb-6">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="lastName"
+          >Last Name</label
+        >
+        <input
+          class="form-input mt-1 block w-full bg-gray-200 text-gray-700 rounded-md py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          id="lastName"
+          type="text"
+          placeholder="Last Name"
+          [(ngModel)]="newClient.lastName"
+          name="lastName"
+        />
+      </div>
+
+      <div class="mb-6">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="email"
+          >Email</label
+        >
+        <input
+          class="form-input mt-1 block w-full bg-gray-200 text-gray-700 rounded-md py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          id="email"
+          type="email"
+          placeholder="Email"
+          [(ngModel)]="newClient.email"
+          name="email"
+        />
+      </div>
+
+      <div class="flex justify-end">
+        <button
+          [disabled]="isClientBlank()"
+          [ngClass]="{
+            'bg-gray-500': isClientBlank(),
+            'bg-blue-500 hover:bg-blue-600': !isClientBlank()
+          }"
+          class="text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          type="submit"
+        >
+          Add Client
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
