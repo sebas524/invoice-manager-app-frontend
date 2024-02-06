@@ -1,4 +1,12 @@
 <div class="container mx-auto mt-8">
+  <!-- * success message in case new client is created -->
+  <div
+    *ngIf="successMessage"
+    class="bg-green-100 text-green-700 p-3 rounded-md mb-4"
+  >
+    {{ successMessage }}
+  </div>
+
   <div class="bg-white rounded-lg shadow-md p-6">
     <h2 class="text-3xl font-semibold mb-4 text-gray-800">Client Management</h2>
 
@@ -9,8 +17,7 @@
         >Add New Client</a
       >
     </div>
-
-    <div class="overflow-x-auto">
+    <div class="overflow-x-auto overflow-y-auto" style="max-height: 400px">
       <table
         class="min-w-full bg-white border border-gray-300 shadow-md rounded-md"
       >

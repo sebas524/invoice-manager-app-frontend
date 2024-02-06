@@ -34,7 +34,7 @@ export class CreateUserPageComponent {
 
     this.clientService.createClient(this.newClient).subscribe((res) => {
       console.log('submit btn clicked! client data: ', this.newClient);
-      return this.router.navigateByUrl('/clients');
+      return this.router.navigateByUrl('/clients?success=true');
     });
   }
 }
