@@ -20,6 +20,10 @@ const routes: Routes = [
         component: CreateUserPageComponent,
       },
       {
+        path: 'clients/create/client/:id',
+        component: CreateUserPageComponent,
+      },
+      {
         path: 'home',
         component: HomePageComponent,
       },

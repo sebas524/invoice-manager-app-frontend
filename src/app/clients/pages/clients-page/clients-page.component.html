@@ -1,47 +1,73 @@
 <div class="container mx-auto mt-8">
-  <!-- * success message in case new client is created -->
-  <div
-    *ngIf="successMessage"
-    class="bg-green-100 text-green-700 p-3 rounded-md mb-4"
-  >
-    {{ successMessage }}
-  </div>
-
   <div class="bg-white rounded-lg shadow-md p-6">
     <h2 class="text-3xl font-semibold mb-4 text-gray-800">Client Management</h2>
 
-    <div class="flex justify-end mb-4">
-      <a
-        routerLink="create/client"
-        class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        >Add New Client</a
-      >
+    <div
+      *ngIf="successMessage"
+      class="bg-green-100 text-green-700 p-3 rounded-md mb-4"
+    >
+      {{ successMessage }}
     </div>
-    <div class="overflow-x-auto overflow-y-auto" style="max-height: 400px">
-      <table
-        class="min-w-full bg-white border border-gray-300 shadow-md rounded-md"
-      >
-        <thead>
-          <tr class="bg-gray-100">
-            <th class="py-2 px-4 border-b border-r text-left">First Name</th>
-            <th class="py-2 px-4 border-b border-r text-left">Last Name</th>
-            <th class="py-2 px-4 border-b border-r text-left">Email</th>
-            <th class="py-2 px-4 border-b text-left">Created At</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let client of clients" class="hover:bg-gray-50">
-            <td class="py-2 px-4 border-b border-r">
-              {{ client.firstName | titlecase }}
-            </td>
-            <td class="py-2 px-4 border-b border-r">
-              {{ client.lastName | titlecase }}
-            </td>
-            <td class="py-2 px-4 border-b border-r">{{ client.email }}</td>
-            <td class="py-2 px-4 border-b">{{ client.createdAt }}</td>
-          </tr>
-        </tbody>
-      </table>
+
+    <div *ngIf="clients && clients.length > 0">
+      <div class="flex justify-end mb-4">
+        <a
+          routerLink="create/client"
+          class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >Add New Client</a
+        >
+      </div>
+
+      <div class="overflow-x-auto overflow-y-auto" style="max-height: 400px">
+        <table
+          class="min-w-full bg-white border border-gray-300 shadow-md rounded-md"
+        >
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="py-2 px-4 border-b border-r text-left">First Name</th>
+              <th class="py-2 px-4 border-b border-r text-left">Last Name</th>
+              <th class="py-2 px-4 border-b border-r text-left">Email</th>
+              <th class="py-2 px-4 border-b text-left">Created At</th>
+              <th class="py-2 px-4 border-b text-left">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let client of clients" class="hover:bg-gray-50">
+              <td class="py-2 px-4 border-b border-r">
+                {{ client.firstName | titlecase }}
+              </td>
+              <td class="py-2 px-4 border-b border-r">
+                {{ client.lastName | titlecase }}
+              </td>
+              <td class="py-2 px-4 border-b border-r">{{ client.email }}</td>
+              <td class="py-2 px-4 border-b">{{ client.createdAt }}</td>
+              <td class="py-2 px-4 border-b">
+                <a
+                  [routerLink]="['create/client', client.id]"
+                  class="text-blue-500 hover:text-blue-600"
+                  >Edit</a
+                >
+                <a
+                  class="text-red-500 hover:text-red-600 ml-2 cursor-pointer"
+                  (click)="deleteClient(client)"
+                  >Delete</a
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div *ngIf="!clients || clients.length === 0">
+      <div class="flex justify-end mb-4">
+        <a
+          routerLink="create/client"
+          class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >Add New Client</a
+        >
+      </div>
+      <p class="text-gray-600">No records yet.</p>
     </div>
   </div>
 </div>

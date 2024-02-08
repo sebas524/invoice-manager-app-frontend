@@ -1,7 +1,11 @@
 <div class="container mx-auto mt-8">
   <div class="bg-white rounded-lg shadow-md p-6 max-w-lg mx-auto">
-    <!-- Added mx-auto -->
-    <h2 class="text-3xl font-semibold mb-4 text-gray-800">Add New Client</h2>
+    <h2 class="text-3xl font-semibold mb-4 text-gray-800">
+      {{ newClient.id ? "Update Client" : "Add New Client" }}
+    </h2>
+
+    <!-- Error message display -->
+    <div *ngIf="errorMessage" class="text-red-500 mb-4">{{ errorMessage }}</div>
 
     <form (ngSubmit)="create()">
       <div class="mb-6">
@@ -58,7 +62,7 @@
           class="text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="submit"
         >
-          Add Client
+          {{ newClient.id ? "Update Client" : "Add Client" }}
         </button>
       </div>
     </form>

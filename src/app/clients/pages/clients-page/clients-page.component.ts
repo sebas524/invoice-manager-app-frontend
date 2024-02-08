@@ -29,7 +29,7 @@ export class ClientsPageComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.successMessage =
         params['success'] === 'true'
-          ? 'Client has been successfully created!'
+          ? 'Client has been successfully created/updated!'
           : null;
 
       // * Set a timer to clear the success message after 4 seconds
@@ -39,5 +39,21 @@ export class ClientsPageComponent implements OnInit {
         }, 4000);
       }
     });
+  }
+
+  deleteClient(client: Client) {
+    const confirmDelete = confirm(
+      'Are you sure you want to delete this client?'
+    );
+
+    if (confirmDelete) {
+      return this.clientsService.deleteUser(client.id!).subscribe(() => {
+        this.clients = this.clients?.filter((c) => {
+          return c !== client;
+        });
+        alert('Client has been successfully deleted.');
+      });
+    }
+    return;
   }
 }
