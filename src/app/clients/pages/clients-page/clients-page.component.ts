@@ -11,14 +11,20 @@ import { ActivatedRoute } from '@angular/router';
 export class ClientsPageComponent implements OnInit {
   clients: Client[] | undefined;
   successMessage: string | null = null;
-  currentPage: number = 0;
-  pageSize: number = 5;
-  sortField: string = 'firstName,asc';
+  currentPage: number | undefined;
+  pageSize: number | undefined;
+  sortField: string | undefined;
+
+  flag = false;
 
   constructor(
     private clientsService: ClientsService,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) {
+    this.currentPage = 0;
+    this.pageSize = 5;
+    this.sortField = 'firstName,asc';
+  }
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((params) => {
@@ -46,10 +52,23 @@ export class ClientsPageComponent implements OnInit {
     this.clientsService
       .getClients(this.pageSize, this.currentPage, this.sortField)
       .subscribe((clients) => {
-        this.clients = clients;
-      });
+        if (clients.length === 0) {
+          this.flag = true;
+          this.currentPage!--;
 
-    console.log('ran loadClients: ', this.clients);
+          console.log('NOTHING');
+          console.log('LOADCLIENTS: ', this.clients);
+          console.log('this.pageSize :>> ', this.pageSize);
+          console.log('this.currentPage :>> ', this.currentPage);
+          console.log('this.sortField :>> ', this.sortField);
+        } else {
+          this.clients = clients;
+          console.log('LOADCLIENTS: ', this.clients);
+          console.log('this.pageSize :>> ', this.pageSize);
+          console.log('this.currentPage :>> ', this.currentPage);
+          console.log('this.sortField :>> ', this.sortField);
+        }
+      });
   }
 
   deleteClient(client: Client) {
@@ -69,26 +88,35 @@ export class ClientsPageComponent implements OnInit {
   }
 
   changePageSize(event: any) {
+    this.flag = false;
+
     this.pageSize = event.target.value;
-    this.currentPage = 0; // Reset page to 1 when changing page size
+    this.currentPage = 0; // Reset page to 0 when changing page size
     this.loadClients();
   }
 
   prevPage() {
-    if (this.currentPage > 0) {
-      this.currentPage--;
+    this.flag = false;
+    if (this.currentPage! > 0) {
+      this.currentPage!--;
       this.loadClients();
     }
   }
-
   nextPage() {
-    if (this.clients && this.clients.length >= this.pageSize) {
-      this.currentPage++;
+    if (this.flag) {
+      console.log('QQQ');
+
+      return;
+    }
+    if (this.clients && this.clients.length >= this.pageSize!) {
+      this.currentPage!++;
       this.loadClients();
     }
   }
 
   changeSort(event: any) {
+    this.flag = false;
+
     this.sortField = event.target.value;
     this.loadClients();
   }

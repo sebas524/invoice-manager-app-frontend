@@ -36,10 +36,10 @@
           >
             Previous
           </button>
-          <span>{{ currentPage }}</span>
+          <span>{{ currentPage! + 1 }}</span>
           <button
             (click)="nextPage()"
-            [disabled]="clients.length < pageSize"
+            [disabled]="clients.length < pageSize! || flag"
             class="px-2 py-1 rounded border ml-2"
           >
             Next
