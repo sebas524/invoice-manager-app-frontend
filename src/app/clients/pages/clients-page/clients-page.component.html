@@ -10,7 +10,61 @@
     </div>
 
     <div *ngIf="clients && clients.length > 0">
-      <!-- Pagination, Sorting, etc. controls can go here -->
+      <!-- Pagination, Sorting, etc. controls -->
+      <div class="flex justify-between items-center mb-4">
+        <!-- Size Control -->
+        <div>
+          <label for="sizeSelect" class="mr-2">Size:</label>
+          <select
+            id="sizeSelect"
+            [(ngModel)]="pageSize"
+            (change)="changePageSize($event)"
+            class="border rounded px-2 py-1"
+          >
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+          </select>
+        </div>
+
+        <!-- Page Control -->
+        <div>
+          <button
+            (click)="prevPage()"
+            [disabled]="currentPage === 0"
+            class="px-2 py-1 rounded border mr-2"
+          >
+            Previous
+          </button>
+          <span>{{ currentPage }}</span>
+          <button
+            (click)="nextPage()"
+            [disabled]="clients.length < pageSize"
+            class="px-2 py-1 rounded border ml-2"
+          >
+            Next
+          </button>
+        </div>
+
+        <!-- Sort Control -->
+        <div>
+          <label for="sortSelect" class="mr-2">Sort:</label>
+          <select
+            id="sortSelect"
+            [(ngModel)]="sortField"
+            (change)="changeSort($event)"
+            class="border rounded px-2 py-1"
+          >
+            <option value="firstName,asc">First Name A-Z</option>
+            <option value="firstName,desc">First Name Z-A</option>
+            <option value="lastName,asc">Last Name A-Z</option>
+            <option value="lastName,desc">Last Name Z-A</option>
+            <!-- Add more options as needed -->
+          </select>
+        </div>
+      </div>
+
+      <!-- Client Table -->
       <div class="overflow-x-auto overflow-y-auto" style="max-height: 400px">
         <table
           class="min-w-full bg-white border border-gray-300 shadow-md rounded-md"

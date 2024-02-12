@@ -11,6 +11,9 @@ import { ActivatedRoute } from '@angular/router';
 export class ClientsPageComponent implements OnInit {
   clients: Client[] | undefined;
   successMessage: string | null = null;
+  currentPage: number = 0;
+  pageSize: number = 5;
+  sortField: string = 'firstName,asc';
 
   constructor(
     private clientsService: ClientsService,
@@ -18,17 +21,19 @@ export class ClientsPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // * new client message when created:
     this.activatedRoute.queryParams.subscribe((params) => {
       const { size, page, sort } = params;
-      this.loadClients(size, page, sort);
+      this.pageSize = size ? +size : this.pageSize;
+      this.currentPage = page ? +page : this.currentPage;
+      this.sortField = sort ? sort : this.sortField;
 
+      this.loadClients();
       this.successMessage =
         params['success'] === 'true'
           ? 'Client has been successfully created/updated!'
           : null;
 
-      // * Set a timer to clear the success message after 4 seconds
+      // Set a timer to clear the success message after 4 seconds
       if (this.successMessage) {
         setTimeout(() => {
           this.successMessage = null;
@@ -37,10 +42,14 @@ export class ClientsPageComponent implements OnInit {
     });
   }
 
-  loadClients(size?: number, page?: number, sort?: string) {
-    this.clientsService.getClients(size, page, sort).subscribe((clients) => {
-      this.clients = clients;
-    });
+  loadClients() {
+    this.clientsService
+      .getClients(this.pageSize, this.currentPage, this.sortField)
+      .subscribe((clients) => {
+        this.clients = clients;
+      });
+
+    console.log('ran loadClients: ', this.clients);
   }
 
   deleteClient(client: Client) {
@@ -57,5 +66,30 @@ export class ClientsPageComponent implements OnInit {
       });
     }
     return;
+  }
+
+  changePageSize(event: any) {
+    this.pageSize = event.target.value;
+    this.currentPage = 0; // Reset page to 1 when changing page size
+    this.loadClients();
+  }
+
+  prevPage() {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      this.loadClients();
+    }
+  }
+
+  nextPage() {
+    if (this.clients && this.clients.length >= this.pageSize) {
+      this.currentPage++;
+      this.loadClients();
+    }
+  }
+
+  changeSort(event: any) {
+    this.sortField = event.target.value;
+    this.loadClients();
   }
 }
