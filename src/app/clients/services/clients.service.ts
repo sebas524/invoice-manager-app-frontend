@@ -13,8 +13,22 @@ export class ClientsService {
 
   constructor(private httpClient: HttpClient, private router: Router) {}
 
-  getClients(): Observable<Client[]> {
-    return this.httpClient.get<Client[]>(this.baseUrl);
+  getClients(
+    size?: number,
+    page?: number,
+    sort?: string
+  ): Observable<Client[]> {
+    let params = new HttpParams();
+    if (size) {
+      params = params.set('size', size.toString());
+    }
+    if (page) {
+      params = params.set('page', page.toString());
+    }
+    if (sort) {
+      params = params.set('sort', sort);
+    }
+    return this.httpClient.get<Client[]>(this.baseUrl, { params });
   }
 
   createClient(client: Client): Observable<Client> {

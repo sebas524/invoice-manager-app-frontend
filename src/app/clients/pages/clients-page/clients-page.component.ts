@@ -18,15 +18,11 @@ export class ClientsPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // * fetching clients from db:
-
-    this.clientsService.getClients().subscribe((clients) => {
-      this.clients = clients;
-      console.log('info from server: ', this.clients);
-    });
-
     // * new client message when created:
     this.activatedRoute.queryParams.subscribe((params) => {
+      const { size, page, sort } = params;
+      this.loadClients(size, page, sort);
+
       this.successMessage =
         params['success'] === 'true'
           ? 'Client has been successfully created/updated!'
@@ -38,6 +34,12 @@ export class ClientsPageComponent implements OnInit {
           this.successMessage = null;
         }, 4000);
       }
+    });
+  }
+
+  loadClients(size?: number, page?: number, sort?: string) {
+    this.clientsService.getClients(size, page, sort).subscribe((clients) => {
+      this.clients = clients;
     });
   }
 
