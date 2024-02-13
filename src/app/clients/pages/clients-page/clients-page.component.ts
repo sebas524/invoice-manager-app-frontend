@@ -23,7 +23,7 @@ export class ClientsPageComponent implements OnInit {
   ) {
     this.currentPage = 0;
     this.pageSize = 5;
-    this.sortField = 'firstName,asc';
+    this.sortField = 'createdAt,desc';
   }
 
   ngOnInit(): void {
@@ -55,18 +55,8 @@ export class ClientsPageComponent implements OnInit {
         if (clients.length === 0) {
           this.flag = true;
           this.currentPage!--;
-
-          console.log('NOTHING');
-          console.log('LOADCLIENTS: ', this.clients);
-          console.log('this.pageSize :>> ', this.pageSize);
-          console.log('this.currentPage :>> ', this.currentPage);
-          console.log('this.sortField :>> ', this.sortField);
         } else {
           this.clients = clients;
-          console.log('LOADCLIENTS: ', this.clients);
-          console.log('this.pageSize :>> ', this.pageSize);
-          console.log('this.currentPage :>> ', this.currentPage);
-          console.log('this.sortField :>> ', this.sortField);
         }
       });
   }

@@ -9,6 +9,15 @@
       {{ successMessage }}
     </div>
 
+    <!-- Add New Client Button -->
+    <div class="flex justify-end mb-4">
+      <a
+        routerLink="create/client"
+        class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >Add New Client</a
+      >
+    </div>
+
     <div *ngIf="clients && clients.length > 0">
       <!-- Pagination, Sorting, etc. controls -->
       <div class="flex justify-between items-center mb-4">
@@ -48,18 +57,21 @@
 
         <!-- Sort Control -->
         <div>
-          <label for="sortSelect" class="mr-2">Sort:</label>
+          <label for="sortSelect" class="mr-2">Sort by:</label>
           <select
             id="sortSelect"
             [(ngModel)]="sortField"
             (change)="changeSort($event)"
             class="border rounded px-2 py-1"
           >
+            <option value="createdAt,desc">Date Newest</option>
+            <option value="createdAt,asc">Date Oldest</option>
+
             <option value="firstName,asc">First Name A-Z</option>
             <option value="firstName,desc">First Name Z-A</option>
             <option value="lastName,asc">Last Name A-Z</option>
             <option value="lastName,desc">Last Name Z-A</option>
-            <!-- Add more options as needed -->
+            <!-- here add more options as needed -->
           </select>
         </div>
       </div>
@@ -111,13 +123,6 @@
     </div>
 
     <div *ngIf="!clients || clients.length === 0">
-      <div class="flex justify-end mb-4">
-        <a
-          routerLink="create/client"
-          class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >Add New Client</a
-        >
-      </div>
       <p class="text-gray-600">No records yet.</p>
     </div>
   </div>

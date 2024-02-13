@@ -52,6 +52,21 @@
         />
       </div>
 
+      <div class="mb-6">
+        <label
+          class="block text-gray-700 text-sm font-bold mb-2"
+          for="createdAt"
+          >Created At</label
+        >
+        <input
+          class="form-input mt-1 block w-full bg-gray-200 text-gray-700 rounded-md py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          id="createdAt"
+          type="date"
+          [(ngModel)]="newClient.createdAt"
+          name="createdAt"
+        />
+      </div>
+
       <div class="flex justify-end">
         <button
           [disabled]="isClientBlank()"
