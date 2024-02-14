@@ -5,6 +5,7 @@ import { ClientsPageComponent } from './pages/clients-page/clients-page.componen
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { AboutPageComponent } from './pages/about-page/about-page.component';
 import { CreateUserPageComponent } from './pages/create-user-page/create-user-page.component';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
       {
         path: 'clients/create/client/:id',
         component: CreateUserPageComponent,
+      },
+      {
+        path: 'clients/profile/client/:id',
+        component: ProfilePageComponent,
       },
       {
         path: 'home',

@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CreateUserPageComponent } from './pages/create-user-page/create-user-page.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { RouterModule } from '@angular/router';
     HomePageComponent,
     AboutPageComponent,
     CreateUserPageComponent,
+    ProfilePageComponent,
   ],
   imports: [
     CommonModule,

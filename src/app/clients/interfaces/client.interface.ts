@@ -4,4 +4,5 @@ export interface Client {
   lastName: string;
   email: string;
   createdAt?: string;
+  image?: string;
 }

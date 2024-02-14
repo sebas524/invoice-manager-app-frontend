@@ -70,4 +70,19 @@ export class ClientsService {
       headers: this.httpHeaders,
     });
   }
+
+  uploadPicture(file: File, id: any): Observable<Client> {
+    let formData = new FormData();
+    formData.append('file', file);
+    formData.append('id', id);
+
+    return this.httpClient.post(`${this.baseUrl}/upload`, formData).pipe(
+      map((res: any) => {
+        return res.client as Client;
+      }),
+      catchError((error) => {
+        return throwError(() => new Error(error.error.message));
+      })
+    );
+  }
 }

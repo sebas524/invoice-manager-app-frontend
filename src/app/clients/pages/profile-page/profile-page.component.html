@@ -1,0 +1,86 @@
+<div class="container mx-auto mt-8">
+  <div class="bg-white rounded-lg shadow-md p-6 max-w-lg mx-auto">
+    <h2 class="text-3xl font-semibold mb-4 text-gray-800">Client Profile</h2>
+
+    <div
+      *ngIf="uploadSuccess"
+      class="bg-green-100 text-green-700 p-3 rounded-md mb-4"
+    >
+      upload was successful!
+    </div>
+
+    <div class="flex items-center justify-center mb-6">
+      <!-- Profile Image -->
+      <div class="w-32 h-32 rounded-full overflow-hidden bg-red-300">
+        <img
+          *ngIf="client?.image"
+          src="http://localhost:8080/api/clients/uploads/{{ client?.image }}"
+          alt="profile picture"
+          style="width: 100%; height: 100%; object-fit: cover"
+        />
+        <p *ngIf="!client?.image" class="text-gray-500 text-center p-4">
+          No image yet
+        </p>
+      </div>
+    </div>
+
+    <div *ngIf="client">
+      <div class="mb-6">
+        <label class="block text-gray-700 text-sm font-bold mb-2"
+          >First Name:</label
+        >
+        <p class="text-gray-800">{{ client.firstName }}</p>
+      </div>
+
+      <div class="mb-6">
+        <label class="block text-gray-700 text-sm font-bold mb-2"
+          >Last Name:</label
+        >
+        <p class="text-gray-800">{{ client.lastName }}</p>
+      </div>
+
+      <div class="mb-6">
+        <label class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+        <p class="text-gray-800">{{ client.email }}</p>
+      </div>
+
+      <div class="mb-6">
+        <label class="block text-gray-700 text-sm font-bold mb-2"
+          >Created At:</label
+        >
+        <p class="text-gray-800">
+          {{ client.createdAt | date : "dd/MM/yyyy" }}
+        </p>
+      </div>
+
+      <!-- Image Upload -->
+      <label class="block text-gray-700 text-sm font-bold mb-2"
+        >Upload Image:</label
+      >
+      <div class="mb-6 flex items-center">
+        <input
+          type="file"
+          (change)="onFileSelected($event)"
+          accept="image/*"
+          class="flex-1 mr-2"
+        />
+        <!-- You can add additional styling or validation for the file input as needed -->
+        <button
+          (click)="uploadImage()"
+          [disabled]="!selectedImage"
+          [ngClass]="
+            selectedImage ? 'bg-blue-500 hover:bg-blue-600' : 'bg-gray-300'
+          "
+          class="text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          type="submit"
+        >
+          Upload
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!client">
+    <p class="text-gray-600">No client selected.</p>
+  </div>
+</div>
