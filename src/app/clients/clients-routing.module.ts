@@ -24,10 +24,7 @@ const routes: Routes = [
         path: 'clients/create/client/:id',
         component: CreateUserPageComponent,
       },
-      {
-        path: 'clients/profile/client/:id',
-        component: ProfilePageComponent,
-      },
+
       {
         path: 'home',
         component: HomePageComponent,

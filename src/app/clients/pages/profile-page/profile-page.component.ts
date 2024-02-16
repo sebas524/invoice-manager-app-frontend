@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ClientsService } from '../../services/clients.service';
 import { ActivatedRoute } from '@angular/router';
 import { Client } from '../../interfaces/client.interface';
+import { ModalService } from '../../services/modal.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -9,31 +10,16 @@ import { Client } from '../../interfaces/client.interface';
   styleUrls: ['./profile-page.component.css'],
 })
 export class ProfilePageComponent implements OnInit {
-  client: Client | undefined;
+  @Input() client: Client | undefined;
   selectedImage: File | undefined;
   uploadSuccess: boolean = false;
 
   constructor(
     private clientsService: ClientsService,
-    private activatedRoute: ActivatedRoute
+    public modalService: ModalService
   ) {}
 
-  ngOnInit(): void {
-    this.loadClient();
-  }
-
-  loadClient() {
-    // * to get params from specific path in routing-module:
-    this.activatedRoute.params.subscribe((params) => {
-      let id = params['id'];
-      if (id) {
-        this.clientsService.getClient(id).subscribe((client) => {
-          // * setting fetched id data to client attribute:
-          this.client = client;
-        });
-      }
-    });
-  }
+  ngOnInit(): void {}
 
   onFileSelected(event: any) {
     this.selectedImage = event.target.files[0];
@@ -62,5 +48,10 @@ export class ProfilePageComponent implements OnInit {
           }, 4000);
         }
       });
+  }
+
+  closeClientModal(client: Client) {
+    this.modalService.closeModal();
+    this.selectedImage = undefined;
   }
 }

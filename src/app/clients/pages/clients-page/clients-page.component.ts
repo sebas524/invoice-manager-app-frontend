@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Client } from '../../interfaces/client.interface';
 import { ClientsService } from '../../services/clients.service';
 import { ActivatedRoute } from '@angular/router';
+import { ModalService } from '../../services/modal.service';
 
 @Component({
   selector: 'app-clients-page',
@@ -15,11 +16,16 @@ export class ClientsPageComponent implements OnInit {
   pageSize: number | undefined;
   sortField: string | undefined;
 
+  // ! for modal
+  selectedClient: Client | undefined;
+  // ! _________
+
   flag = false;
 
   constructor(
     private clientsService: ClientsService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private modalService: ModalService
   ) {
     this.currentPage = 0;
     this.pageSize = 5;
@@ -109,5 +115,10 @@ export class ClientsPageComponent implements OnInit {
 
     this.sortField = event.target.value;
     this.loadClients();
+  }
+
+  openClientModal(client: Client) {
+    this.selectedClient = client;
+    this.modalService.openModal();
   }
 }

@@ -1,7 +1,30 @@
-<div class="container mx-auto mt-8">
-  <div class="bg-white rounded-lg shadow-md p-6 max-w-lg mx-auto">
+<div
+  *ngIf="modalService.active"
+  class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-900 bg-opacity-50"
+>
+  <div class="bg-white rounded-lg shadow-md p-6 max-w-lg relative">
+    <!-- Close button -->
+    <button
+      class="absolute top-0 right-0 mt-4 mr-4 text-gray-600 hover:text-gray-800 focus:outline-none"
+      (click)="closeClientModal(client!)"
+    >
+      <svg
+        class="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M6 18L18 6M6 6l12 12"
+        />
+      </svg>
+    </button>
     <h2 class="text-3xl font-semibold mb-4 text-gray-800">Client Profile</h2>
 
+    <!-- Success message -->
     <div
       *ngIf="uploadSuccess"
       class="bg-green-100 text-green-700 p-3 rounded-md mb-4"
@@ -13,8 +36,11 @@
       <!-- Profile Image -->
       <div class="w-32 h-32 rounded-full overflow-hidden bg-red-300">
         <img
-          *ngIf="client?.image"
-          src="http://localhost:8080/api/clients/uploads/{{ client?.image }}"
+          src="http://localhost:8080/api/{{
+            client?.image
+              ? 'clients/uploads/' + client?.image
+              : 'images/no-pic.png'
+          }}"
           alt="profile picture"
           style="width: 100%; height: 100%; object-fit: cover"
         />
@@ -25,25 +51,23 @@
     </div>
 
     <div *ngIf="client">
+      <!-- Client details -->
       <div class="mb-6">
         <label class="block text-gray-700 text-sm font-bold mb-2"
           >First Name:</label
         >
         <p class="text-gray-800">{{ client.firstName }}</p>
       </div>
-
       <div class="mb-6">
         <label class="block text-gray-700 text-sm font-bold mb-2"
           >Last Name:</label
         >
         <p class="text-gray-800">{{ client.lastName }}</p>
       </div>
-
       <div class="mb-6">
         <label class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
         <p class="text-gray-800">{{ client.email }}</p>
       </div>
-
       <div class="mb-6">
         <label class="block text-gray-700 text-sm font-bold mb-2"
           >Created At:</label
@@ -64,7 +88,6 @@
           accept="image/*"
           class="flex-1 mr-2"
         />
-        <!-- You can add additional styling or validation for the file input as needed -->
         <button
           (click)="uploadImage()"
           [disabled]="!selectedImage"
@@ -78,9 +101,5 @@
         </button>
       </div>
     </div>
-  </div>
-
-  <div *ngIf="!client">
-    <p class="text-gray-600">No client selected.</p>
   </div>
 </div>
