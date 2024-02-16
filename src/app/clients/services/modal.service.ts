@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
@@ -6,7 +6,13 @@ import { Injectable } from '@angular/core';
 export class ModalService {
   active: boolean = false;
 
+  private _notifyImageChange = new EventEmitter<any>();
+
   constructor() {}
+
+  get notifyImageChange(): EventEmitter<any> {
+    return this._notifyImageChange;
+  }
 
   openModal() {
     this.active = true;

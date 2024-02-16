@@ -52,6 +52,16 @@ export class ClientsPageComponent implements OnInit {
         }, 4000);
       }
     });
+
+    this.modalService.notifyImageChange.subscribe((client) => {
+      this.clients = this.clients?.map((currentClient) => {
+        if (client.id === currentClient.id) {
+          currentClient.image = client.image;
+        }
+
+        return currentClient;
+      });
+    });
   }
 
   loadClients() {

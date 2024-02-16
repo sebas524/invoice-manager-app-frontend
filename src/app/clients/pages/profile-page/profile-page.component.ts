@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ClientsService } from '../../services/clients.service';
-import { ActivatedRoute } from '@angular/router';
 import { Client } from '../../interfaces/client.interface';
 import { ModalService } from '../../services/modal.service';
 
@@ -40,6 +39,7 @@ export class ProfilePageComponent implements OnInit {
       .uploadPicture(this.selectedImage!, this.client?.id)
       .subscribe((client) => {
         this.client = client;
+
         this.uploadSuccess = true;
 
         if (this.uploadSuccess) {
@@ -47,6 +47,8 @@ export class ProfilePageComponent implements OnInit {
             this.uploadSuccess = false;
           }, 4000);
         }
+
+        this.modalService.notifyImageChange.emit(this.client);
       });
   }
 
