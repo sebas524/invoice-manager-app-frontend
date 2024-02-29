@@ -13,6 +13,7 @@ export class CreateUserPageComponent implements OnInit {
     firstName: '',
     lastName: '',
     email: '',
+    region: { id: 0, name: '' },
   };
 
   errorMessage: string = '';

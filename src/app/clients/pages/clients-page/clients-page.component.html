@@ -92,6 +92,8 @@
               <th class="py-2 px-4 border-b border-r text-left">First Name</th>
               <th class="py-2 px-4 border-b border-r text-left">Last Name</th>
               <th class="py-2 px-4 border-b border-r text-left">Email</th>
+              <th class="py-2 px-4 border-b border-r text-left">Region</th>
+
               <th class="py-2 px-4 border-b text-left">Created At</th>
               <th class="py-2 px-4 border-b text-left">Actions</th>
             </tr>
@@ -117,6 +119,10 @@
                 {{ client.lastName | titlecase }}
               </td>
               <td class="py-2 px-4 border-b border-r">{{ client.email }}</td>
+              <td class="py-2 px-4 border-b border-r">
+                {{ client.region.name }}
+              </td>
+
               <td class="py-2 px-4 border-b">
                 {{ client.createdAt | date : "dd/MM/yyyy" }}
               </td>

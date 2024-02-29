@@ -1,3 +1,5 @@
+import { Region } from './region.interface';
+
 export interface Client {
   id?: number;
   firstName: string;
@@ -5,4 +7,5 @@ export interface Client {
   email: string;
   createdAt?: string;
   image?: string;
+  region: Region;
 }
